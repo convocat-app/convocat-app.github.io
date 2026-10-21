@@ -1,6 +1,6 @@
 // Guarda la app en el móvil para que abra sin conexión.
 // Estrategia: intenta la red primero (así los cambios llegan solos) y, si no hay cobertura, usa la copia guardada.
-const CACHE = 'cd-ribes-femeni-alevi-a-202610191511';
+const CACHE = 'cd-ribes-femeni-alevi-a-202610211656';
 const ARCHIVOS = [
   './',
   './index.html',
