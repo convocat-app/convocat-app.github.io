@@ -1,6 +1,6 @@
 // Guarda la app en el móvil para que abra sin conexión.
 // Estrategia: intenta la red primero (así los cambios llegan solos) y, si no hay cobertura, usa la copia guardada.
-const CACHE = 'blanca-subur-benjami-s9-a-202610211656';
+const CACHE = 'blanca-subur-benjami-s9-a-202610222056';
 const ARCHIVOS = [
   './',
   './index.html',
