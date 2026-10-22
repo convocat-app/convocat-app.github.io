@@ -1,0 +1,33 @@
+{
+  "id": "/basquet-cubelles/senior-femeni/",
+  "name": "CB Cubelles · Sènior Femení",
+  "short_name": "CBC Sènior Femení",
+  "description": "Partidos, entrenos y clasificación del CB Cubelles · Sènior Femení (bàsquet).",
+  "lang": "es",
+  "start_url": "/basquet-cubelles/senior-femeni/",
+  "scope": "/basquet-cubelles/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "iconos/app-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "iconos/app-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "iconos/app-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

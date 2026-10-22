@@ -1,0 +1,33 @@
+{
+  "id": "/basquet-cubelles/mini-femeni/",
+  "name": "CB Cubelles · Mini Femení",
+  "short_name": "CBC Mini Femení",
+  "description": "Partidos, entrenos y clasificación del CB Cubelles · Mini Femení (bàsquet).",
+  "lang": "es",
+  "start_url": "/basquet-cubelles/mini-femeni/",
+  "scope": "/basquet-cubelles/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "iconos/app-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "iconos/app-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "iconos/app-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

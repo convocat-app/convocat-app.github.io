@@ -1,0 +1,33 @@
+{
+  "id": "/basquet-sama-vilanova/mini-femeni/",
+  "name": "SAMA Vilanova · Mini Femení",
+  "short_name": "SAMA Mini Femení",
+  "description": "Partidos, entrenos y clasificación del SAMA Vilanova · Mini Femení (bàsquet).",
+  "lang": "es",
+  "start_url": "/basquet-sama-vilanova/mini-femeni/",
+  "scope": "/basquet-sama-vilanova/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "iconos/app-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "iconos/app-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "iconos/app-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

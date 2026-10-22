@@ -1,0 +1,33 @@
+{
+  "id": "/basquet-cubelles/premini-mixt/",
+  "name": "CB Cubelles · Premini Mixt",
+  "short_name": "CBC Premini Mixt",
+  "description": "Partidos, entrenos y clasificación del CB Cubelles · Premini Mixt (bàsquet).",
+  "lang": "es",
+  "start_url": "/basquet-cubelles/premini-mixt/",
+  "scope": "/basquet-cubelles/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "iconos/app-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "iconos/app-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "iconos/app-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

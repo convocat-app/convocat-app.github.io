@@ -139,8 +139,8 @@
   <section class="pasos" aria-label="Cómo funciona">
     <svg class="campo" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <g fill="none" stroke="#ffffff" stroke-opacity="0.1" stroke-width="2">
-        <rect x="-40" y="14" width="480" height="172"/><line x1="200" y1="14" x2="200" y2="186"/><circle cx="200" cy="100" r="34"/>
-        <rect x="330" y="52" width="110" height="96"/>
+        <rect x="-40" y="14" width="480" height="172"/><line x1="200" y1="14" x2="200" y2="186"/><circle cx="200" cy="100" r="28"/>
+        <rect x="335" y="72" width="105" height="56"/><circle cx="335" cy="100" r="28"/><path d="M440 24 L412 24 A78 78 0 0 0 412 176 L440 176"/><circle cx="422" cy="100" r="5"/>
       </g>
     </svg>
     <div class="pasos-tit">Cómo funciona</div>
@@ -166,7 +166,7 @@
 
 <script>
   const API = 'https://convocat-basquet.netlify.app'; // servidor de ConvoCAT (Netlify)
-  let EQUIPOS = [{"slug":"basquet-sama-vilanova/mini-masculi","nombre":"Mini Masculí","etapa":"Mini","liga":"Lliga d'exemple","grup":1},{"slug":"basquet-sama-vilanova/infantil-femeni","nombre":"Infantil Femení","etapa":"Infantil","liga":"Lliga d'exemple","grup":1},{"slug":"basquet-sama-vilanova/cadet-masculi","nombre":"Cadet Masculí","etapa":"Cadet","liga":"Lliga d'exemple","grup":1},{"slug":"basquet-sama-vilanova/junior-femeni","nombre":"Júnior Femení","etapa":"Júnior","liga":"Lliga d'exemple","grup":1},{"slug":"basquet-sama-vilanova/senior-masculi","nombre":"Sènior Masculí","etapa":"Sènior","liga":"Lliga d'exemple","grup":1}];
+  let EQUIPOS = [{"slug":"basquet-sama-vilanova/premini-mixt","nombre":"Premini Mixt","etapa":"Premini","liga":"Lliga d'exemple","grup":1},{"slug":"basquet-sama-vilanova/mini-masculi","nombre":"Mini Masculí","etapa":"Mini","liga":"Lliga d'exemple","grup":1},{"slug":"basquet-sama-vilanova/mini-femeni","nombre":"Mini Femení","etapa":"Mini","liga":"Lliga d'exemple","grup":1},{"slug":"basquet-sama-vilanova/infantil-masculi","nombre":"Infantil Masculí","etapa":"Infantil","liga":"Lliga d'exemple","grup":1},{"slug":"basquet-sama-vilanova/infantil-femeni","nombre":"Infantil Femení","etapa":"Infantil","liga":"Lliga d'exemple","grup":1},{"slug":"basquet-sama-vilanova/cadet-masculi","nombre":"Cadet Masculí","etapa":"Cadet","liga":"Lliga d'exemple","grup":1},{"slug":"basquet-sama-vilanova/cadet-femeni","nombre":"Cadet Femení","etapa":"Cadet","liga":"Lliga d'exemple","grup":1},{"slug":"basquet-sama-vilanova/junior-masculi","nombre":"Júnior Masculí","etapa":"Júnior","liga":"Lliga d'exemple","grup":1},{"slug":"basquet-sama-vilanova/senior-masculi","nombre":"Sènior Masculí","etapa":"Sènior","liga":"Lliga d'exemple","grup":1},{"slug":"basquet-sama-vilanova/senior-femeni","nombre":"Sènior Femení","etapa":"Sènior","liga":"Lliga d'exemple","grup":1}];
   const ETAPAS = [...new Set(EQUIPOS.map(e => e.etapa))];
   const $ = id => document.getElementById(id);
   const FLECHA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14"/></svg>';
