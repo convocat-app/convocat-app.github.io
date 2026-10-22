@@ -165,7 +165,7 @@
 </div>
 
 <script>
-  const API = 'https://calendari-futbol-base-demo.netlify.app'; // servidor de ConvoCAT (Netlify)
+  const API = 'https://convocat-basquet.netlify.app'; // servidor de ConvoCAT (Netlify)
   let EQUIPOS = [{"slug":"basquet-sama-vilanova/mini-masculi","nombre":"Mini Masculí","etapa":"Mini","liga":"Lliga d'exemple","grup":1},{"slug":"basquet-sama-vilanova/infantil-femeni","nombre":"Infantil Femení","etapa":"Infantil","liga":"Lliga d'exemple","grup":1},{"slug":"basquet-sama-vilanova/cadet-masculi","nombre":"Cadet Masculí","etapa":"Cadet","liga":"Lliga d'exemple","grup":1},{"slug":"basquet-sama-vilanova/junior-femeni","nombre":"Júnior Femení","etapa":"Júnior","liga":"Lliga d'exemple","grup":1},{"slug":"basquet-sama-vilanova/senior-masculi","nombre":"Sènior Masculí","etapa":"Sènior","liga":"Lliga d'exemple","grup":1}];
   const ETAPAS = [...new Set(EQUIPOS.map(e => e.etapa))];
   const $ = id => document.getElementById(id);

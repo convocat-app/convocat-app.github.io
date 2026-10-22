@@ -1530,7 +1530,7 @@
   const ICONO_COMPARTIR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>';
   $('compartir-ico').innerHTML = ICONO_COMPARTIR;
   $('compartir-btn').addEventListener('click', async () => {
-    const url = 'https://calendari-futbol-base-demo.netlify.app/' + EQUIPO.slug + '/';
+    const url = API + '/' + EQUIPO.slug + '/';
     const texto = `⚽ Tots els partits, resultats i horaris del ${NUESTRO} · ${EQUIPO.nombre} al mòbil. Descarrega't l'app gratis 👉`;
     if (navigator.share) {
       try { await navigator.share({ title: `${NUESTRO} · ${EQUIPO.nombre}`, text: texto, url }); return; }

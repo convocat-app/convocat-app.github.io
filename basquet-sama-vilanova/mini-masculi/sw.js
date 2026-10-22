@@ -1,6 +1,6 @@
 // Guarda la app en el móvil para que abra sin conexión.
 // Estrategia: intenta la red primero (así los cambios llegan solos) y, si no hay cobertura, usa la copia guardada.
-const CACHE = 'basquet-sama-vilanova-mini-masculi-202610222056';
+const CACHE = 'basquet-sama-vilanova-mini-masculi-202610222118';
 const ARCHIVOS = [
   './',
   './index.html',
