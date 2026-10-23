@@ -8,111 +8,125 @@
 <link rel="icon" type="image/png" href="../iconos/app-favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&family=Barlow:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&family=Barlow:wght@500;600;700;800&display=swap">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
   :root {
     --color: #9b1c24; --hondo: #5a0d12; --claro: #d0424b; --suave: #fbeaeb;
     --tinta: #131722; --gris: #5f6678; --fondo: #eef1f6;
     --display: "Barlow Condensed", "Arial Narrow", sans-serif;
-    --alt: 1350px; /* alçada del cartell: 1350 (post) o 1920 (història) */
     --texto: "Barlow", "Segoe UI", sans-serif;
+    --alt: 1350px; /* alçada del cartell: 1350 (post) o 1920 (història) */
   }
   [hidden] { display: none !important; }
   html, body { margin: 0; background: var(--fondo); font-family: var(--texto); color: var(--tinta); }
   button { font: inherit; cursor: pointer; }
 
-  /* ---------- Barra de control (no sale en la imagen) ---------- */
+  /* ---------- Barra de control (no surt a la imatge) ---------- */
   .control {
     position: sticky; top: 0; z-index: 5;
     display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px;
     padding: 12px 16px; background: #fff; border-bottom: 1px solid #dfe3ea;
   }
-  .control .semana { font-weight: 700; min-width: 190px; text-align: center; }
+  .control .semana { font-weight: 700; min-width: 170px; text-align: center; }
   .btn { border: 1.5px solid #d6dbe5; background: #fff; border-radius: 999px; padding: 8px 14px; font-weight: 700; }
   .btn.prim { background: var(--color); border-color: var(--color); color: #fff; }
   .btn[aria-pressed="true"] { background: var(--suave); border-color: var(--color); color: var(--hondo); }
   .nota { text-align: center; color: var(--gris); font-size: 0.85rem; margin: 10px 16px 0; }
 
-  /* ---------- Cartell: 1080 × 1350 (post d'Instagram) o 1080 × 1920 (història / TikTok) ---------- */
+  /* ---------- Cartell: 1080 × 1350 (post d'Instagram) o 1080 × 1920 (història) ---------- */
   .escena { display: flex; justify-content: center; padding: 16px 0 40px; }
-  .marco { width: calc(1080px * var(--k)); height: calc(var(--alt) * var(--k)); overflow: hidden; }
+  .marco { width: calc(1080px * var(--k)); height: calc(var(--alt) * var(--k)); overflow: hidden; box-shadow: 0 30px 60px -30px rgba(0,0,0,0.5); }
   .cartell {
     width: 1080px; height: var(--alt); transform: scale(var(--k)); transform-origin: top left;
-    position: relative; overflow: hidden; box-sizing: border-box;
-    padding: 64px 48px 44px;
-    /* degradado vertical: html2canvas dibuja mal los degradados en diagonal */
-    background: linear-gradient(180deg, var(--claro) 0%, var(--color) 40%, var(--hondo) 100%);
-    color: #fff; display: flex; flex-direction: column; gap: 26px;
-    box-shadow: 0 30px 60px -30px rgba(0,0,0,0.5);
+    position: relative; overflow: hidden; box-sizing: border-box; padding: 40px 40px 28px;
+    /* degradat vertical: html2canvas dibuixa malament els degradats en diagonal */
+    background: linear-gradient(180deg, var(--hondo) 0%, #071433 55%, #040b20 100%);
+    color: #fff; display: flex; flex-direction: column; gap: 16px;
   }
-  .cartell svg.campo { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-  .cab { position: relative; text-align: center; }
-  .cab .eyebrow { font-size: 26px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; opacity: 0.85; }
-  .cab h1 {
-    margin: 6px 0 0; font-family: var(--display); font-style: italic; font-weight: 900;
-    font-size: 132px; line-height: 0.86; text-transform: uppercase; letter-spacing: -0.01em;
-    text-shadow: 0 6px 0 rgba(0,0,0,0.18);
-  }
-  .cab h1 small { display: block; font-size: 0.6em; }
-  /* Escut del club al costat del títol */
-  .cab-fila { display: flex; align-items: center; justify-content: center; gap: 30px; }
-  .escut { width: 150px; height: 150px; flex: none; border-radius: 50%; background: #fff; padding: 16px; box-sizing: border-box;
-    object-fit: contain; box-shadow: 0 10px 24px -10px rgba(0,0,0,0.45); }
-  .cab-fila h1 { text-align: left; }
-  /* Format post: més compacte */
-  .cartell.post { padding: 46px 44px 34px; gap: 18px; }
-  .post .cab h1 { font-size: 100px; }
-  .post .escut { width: 124px; height: 124px; padding: 13px; }
-  .post .cab .eyebrow { font-size: 22px; }
-  .post .cab .dates { font-size: 32px; margin-top: 8px; }
-  .post .totals { display: none; }
-  .post .dest { padding: 12px 18px; }
-  .post .dest .t { font-size: 28px; } .post .dest .vs { font-size: 27px; margin: 4px 0; } .post .dest .info { font-size: 21px; }
-  .cab .dates { margin-top: 14px; font-family: var(--display); font-weight: 800; font-size: 38px; text-transform: uppercase; letter-spacing: 0.04em; }
+  /* Franges de pinzell diagonals (decoració) */
+  .franja { position: absolute; left: -200px; width: 1500px; transform: rotate(-12deg); pointer-events: none; }
+  .franja.a { top: 190px; height: 120px; background: var(--color); opacity: 0.55; }
+  .franja.b { top: 300px; height: 26px; background: var(--claro); opacity: 0.45; }
+  .franja.c { bottom: 120px; height: 90px; background: var(--color); opacity: 0.35; }
+  .foto { position: absolute; left: 0; right: 0; top: 0; height: 420px; background-size: cover; background-position: center 20%; opacity: 0.55; }
+  .foto::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,11,32,0) 30%, #071433 100%); }
+  .cartell > *:not(.franja):not(.foto) { position: relative; }
+
+  /* Capçalera: escut gran, títol i dates */
+  .cab { text-align: center; }
+  .cab .escut { width: 150px; height: 150px; border-radius: 50%; background: #fff; padding: 14px; box-sizing: border-box; object-fit: contain;
+    box-shadow: 0 0 0 6px rgba(255,255,255,0.25), 0 14px 30px -10px rgba(0,0,0,0.6); }
+  .cab .eyebrow { margin-top: 10px; font-size: 22px; font-weight: 800; letter-spacing: 0.32em; text-transform: uppercase; opacity: 0.9; }
+  .cab h1 { margin: 2px 0 0; font-family: var(--display); font-style: italic; font-weight: 900; font-size: 116px; line-height: 0.9;
+    text-transform: uppercase; text-shadow: 0 5px 0 var(--color), 0 10px 24px rgba(0,0,0,0.5); }
+  .cab .dates { display: inline-block; margin-top: 8px; padding: 4px 18px; border-radius: 8px; background: var(--color);
+    font-family: var(--display); font-weight: 800; font-size: 30px; text-transform: uppercase; letter-spacing: 0.04em; }
 
   /* Partits destacats (primers equips) */
-  .destacats { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .dest { background: #fff; color: var(--tinta); border-radius: 26px; padding: 18px 22px; text-align: center; }
-  .dest .t { font-family: var(--display); font-weight: 900; font-size: 34px; text-transform: uppercase; color: var(--color); }
-  .dest .vs { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; margin: 8px 0; font-family: var(--display); font-weight: 800; font-size: 31px; text-transform: uppercase; line-height: 1; }
-  .dest .vs b { font-style: italic; font-size: 40px; color: var(--color); }
-  .dest .info { font-weight: 700; font-size: 24px; color: var(--gris); }
+  .destacats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .dest { background: #fff; color: var(--tinta); border-radius: 18px; overflow: hidden; text-align: center; }
+  .dest .t { background: var(--color); color: #fff; font-family: var(--display); font-weight: 900; font-size: 28px; text-transform: uppercase; padding: 4px 10px; letter-spacing: 0.04em; }
+  .dest .vs { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; padding: 8px 14px 2px;
+    font-family: var(--display); font-weight: 800; font-size: 27px; text-transform: uppercase; line-height: 1; }
+  .dest .vs b { font-style: italic; font-size: 34px; color: var(--color); }
+  .dest .info { font-weight: 700; font-size: 20px; color: var(--gris); padding: 0 10px 8px; }
 
   /* Dues columnes: dissabte i diumenge */
-  .dies { position: relative; flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .dia { background: #fff; color: var(--tinta); border-radius: 26px; overflow: hidden; display: flex; flex-direction: column; min-height: 0; }
-  .dia-cab { background: var(--hondo); color: #fff; padding: 14px 18px 12px; text-align: center; }
-  .dia-cab b { display: block; font-family: var(--display); font-weight: 900; font-size: 40px; text-transform: uppercase; line-height: 1; }
-  .dia-cab span { font-size: 21px; font-weight: 600; opacity: 0.9; }
-  .dia-cos { flex: 1; min-height: 0; overflow: hidden; padding: 6px 14px 10px; font-size: var(--fs, 24px); }
-  .grup {
-    margin: 0.55em 0 0.2em; padding: 0.15em 0.55em; border-radius: 0.4em;
-    background: var(--suave); color: var(--hondo);
-    font-family: var(--display); font-weight: 900; font-size: 1.02em; text-transform: uppercase; letter-spacing: 0.04em;
-  }
-  .fila { display: grid; grid-template-columns: 2.7em auto 1fr auto; align-items: center; gap: 0.35em; padding: 0.2em 0.1em; border-bottom: 1px solid #edf0f5; line-height: 1.15; white-space: nowrap; }
-  .fila .h { font-weight: 700; color: var(--gris); }
-  .fila .eq { font-weight: 700; }
-  .fila .rv { min-width: 0; overflow: hidden; text-overflow: ellipsis; color: var(--gris); font-size: 0.88em; }
+  .dies { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .dia { background: #fff; color: var(--tinta); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; min-height: 0; }
+  .dia-cab { background: linear-gradient(180deg, var(--color), var(--hondo)); color: #fff; padding: 10px 14px 8px; text-align: center; }
+  .dia-cab b { display: block; font-family: var(--display); font-weight: 900; font-style: italic; font-size: 36px; text-transform: uppercase; line-height: 1; }
+  .dia-cab span { font-size: 18px; font-weight: 600; opacity: 0.9; }
+  .dia-cos { flex: 1; min-height: 0; overflow: hidden; padding: 4px 10px 8px; font-size: var(--fs, 22px); }
+  .grup { display: flex; align-items: center; gap: 0.35em; margin: 0.45em 0 0.15em; padding: 0.12em 0.45em; border-radius: 0.35em;
+    background: var(--suave); color: var(--hondo); font-family: var(--display); font-weight: 900; font-size: 1em; text-transform: uppercase; letter-spacing: 0.04em; }
+  .mini { width: 1.05em; height: 1.05em; flex: none; object-fit: contain; }
+  .fila { display: grid; grid-template-columns: 2.6em 1.05em auto 1fr auto; align-items: center; gap: 0.3em; padding: 0.16em 0.05em;
+    border-bottom: 1px solid #edf0f5; line-height: 1.15; white-space: nowrap; }
+  .fila .h { font-weight: 800; color: var(--gris); }
+  .fila .eq { font-weight: 800; }
+  .fila .rv { min-width: 0; overflow: hidden; text-overflow: ellipsis; color: var(--gris); font-size: 0.86em; }
   .fila .rv i { font-style: normal; font-weight: 700; opacity: 0.7; }
-  .lloc { font-family: var(--display); font-weight: 800; font-size: 0.85em; padding: 0.1em 0.45em; border-radius: 0.35em; text-transform: uppercase; }
+  .lloc { font-family: var(--display); font-weight: 800; font-size: 0.78em; padding: 0.1em 0.45em; border-radius: 0.3em; text-transform: uppercase; }
   .lloc.casa { background: var(--color); color: #fff; }
   .lloc.fora { background: #e3e7ef; color: var(--tinta); }
-  .res { font-family: var(--display); font-style: italic; font-weight: 900; font-size: 1.1em; padding: 0.05em 0.4em; border-radius: 0.35em; color: #fff; white-space: nowrap; }
+  .res { font-family: var(--display); font-style: italic; font-weight: 900; font-size: 1.05em; padding: 0.05em 0.4em; border-radius: 0.3em; color: #fff; }
   .res.G { background: #1f8a4c; } .res.E { background: #b7791f; } .res.P { background: #9aa1b2; }
   .buit { color: var(--gris); text-align: center; padding: 1.5em 0.5em; }
 
-  /* Peu */
-  .descansen { position: relative; background: rgba(255,255,255,0.14); border: 2px solid rgba(255,255,255,0.35); border-radius: 22px; padding: 12px 20px; text-align: center; font-size: 24px; }
-  .descansen b { font-family: var(--display); font-weight: 900; font-size: 28px; text-transform: uppercase; letter-spacing: 0.06em; margin-right: 8px; }
-  .totals { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-  .tot { background: rgba(0,0,0,0.2); border-radius: 20px; padding: 12px 10px; text-align: center; }
-  .tot b { display: block; font-family: var(--display); font-weight: 900; font-size: 56px; line-height: 1; }
-  .tot span { font-size: 21px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.9; }
-  .peu { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size: 22px; }
-  .patro { border: 2px dashed rgba(255,255,255,0.6); border-radius: 16px; padding: 12px 20px; font-weight: 700; letter-spacing: 0.04em; }
-  .marca { opacity: 0.85; font-weight: 600; }
+  /* Descansen, xifres i peu */
+  .descansen { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; justify-content: center;
+    background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.25); border-radius: 16px; padding: 8px 14px; }
+  .descansen b { font-family: var(--display); font-weight: 900; font-size: 24px; text-transform: uppercase; letter-spacing: 0.08em; margin-right: 6px; }
+  .descansen span { background: rgba(255,255,255,0.16); border-radius: 999px; padding: 3px 12px; font-size: 18px; font-weight: 700; }
+  .totals { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .tot { display: flex; align-items: center; justify-content: center; gap: 12px; background: rgba(255,255,255,0.1); border-radius: 16px; padding: 8px 10px; }
+  .tot svg { width: 36px; height: 36px; flex: none; }
+  .tot b { display: block; font-family: var(--display); font-weight: 900; font-size: 44px; line-height: 1; }
+  .tot span { display: block; font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.85; }
+  .peu { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; font-size: 24px; font-weight: 700; }
+  .xarxa { display: flex; align-items: center; gap: 10px; }
+  .xarxa.dreta { justify-content: flex-end; }
+  .xarxa svg { width: 34px; height: 34px; flex: none; }
+  .patro { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 64px; padding: 6px 22px; border-radius: 14px; background: #fff; color: var(--tinta); }
+  .patro img { max-height: 58px; max-width: 300px; object-fit: contain; }
+  .patro .nom { font-family: var(--display); font-weight: 900; font-size: 34px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--hondo); }
+  .patro.buit-p { background: transparent; border: 2px dashed rgba(255,255,255,0.5); color: #fff; font-size: 20px; }
+  .marca { text-align: center; font-size: 15px; font-weight: 600; opacity: 0.55; margin-top: -6px; }
+
+  /* Format post (1080 × 1350): més compacte */
+  .post.cartell { padding: 30px 34px 22px; gap: 12px; }
+  .post .cab .escut { width: 118px; height: 118px; padding: 11px; }
+  .post .cab .eyebrow { font-size: 18px; margin-top: 6px; }
+  .post .cab h1 { font-size: 92px; }
+  .post .cab .dates { font-size: 25px; margin-top: 4px; }
+  .post .dest .t { font-size: 23px; } .post .dest .vs { font-size: 23px; padding-top: 5px; } .post .dest .vs b { font-size: 28px; } .post .dest .info { font-size: 17px; padding-bottom: 5px; }
+  .post .dia-cab b { font-size: 30px; } .post .dia-cab span { font-size: 15px; }
+  .post .descansen { padding: 5px 12px; } .post .descansen b { font-size: 20px; } .post .descansen span { font-size: 15px; }
+  .post .tot { padding: 5px 8px; } .post .tot b { font-size: 34px; } .post .tot svg { width: 28px; height: 28px; } .post .tot span { font-size: 12px; }
+  .post .peu { font-size: 20px; } .post .xarxa svg { width: 28px; height: 28px; } .post .patro { min-height: 52px; } .post .patro img { max-height: 46px; }
+  .post .franja.a { top: 150px; } .post .franja.b { top: 240px; } .post .foto { height: 330px; }
 </style>
 </head>
 <body>
@@ -129,15 +143,12 @@
 <p class="nota" id="nota">Carregant els partits…</p>
 
 <div class="escena"><div class="marco"><div class="cartell post" id="cartell">
-  <svg class="campo" viewBox="0 0 1080 1920" preserveAspectRatio="none" aria-hidden="true">
-    <g fill="none" stroke="#fff" stroke-opacity="0.07" stroke-width="4">
-      <rect x="40" y="40" width="1000" height="1840" rx="8"/><line x1="40" y1="960" x2="1040" y2="960"/><circle cx="540" cy="960" r="150"/>
-      <rect x="290" y="40" width="500" height="230"/><rect x="290" y="1650" width="500" height="230"/>
-    </g>
-  </svg>
+  <div class="foto" id="foto" hidden></div>
+  <div class="franja a"></div><div class="franja b"></div><div class="franja c"></div>
   <header class="cab">
+    <img class="escut" src="../escut.png" alt="" onerror="this.remove()">
     <div class="eyebrow" id="eyebrow">Partits del cap de setmana</div>
-    <div class="cab-fila"><img class="escut" src="../escut.png" alt="" onerror="this.remove()"><h1><small>Partits</small>SAMA Vilanova</h1></div>
+    <h1>SAMA Vilanova</h1>
     <div class="dates" id="dates"></div>
   </header>
   <section class="destacats" id="destacats" hidden></section>
@@ -147,23 +158,31 @@
   </section>
   <section class="descansen" id="descansen" hidden></section>
   <section class="totals" id="totals"></section>
-  <footer class="peu">
-    <div class="patro">Espai per al vostre patrocinador</div>
-    <div class="marca">amb ConvoCAT</div>
-  </footer>
+  <footer class="peu" id="peu"></footer>
+  <div class="marca">amb ConvoCAT</div>
 </div></div></div>
 
 <script>
   const API = 'https://convocat-basquet.netlify.app'; // servidor de ConvoCAT (Netlify)
   const CLUB = 'basquet-sama-vilanova', NUESTRO = 'SAMA Vilanova';
+  // Xarxes socials, patrocinador i foto de capçalera del club (clubs.mjs)
+  const EXTRA = {"instagram":null,"tiktok":null,"patrocinador":null,"foto":null};
   const ORDRE = ['Prebenjamí', 'Benjamí', 'Aleví', 'Infantil', 'Cadet', 'Juvenil', 'Femení', 'Sènior'];
   const DIES = ['diumenge', 'dilluns', 'dimarts', 'dimecres', 'dijous', 'divendres', 'dissabte'];
   const MESOS = ['gener', 'febrer', 'març', 'abril', 'maig', 'juny', 'juliol', 'agost', 'setembre', 'octubre', 'novembre', 'desembre'];
   const $ = id => document.getElementById(id);
   const iso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   const deMes = m => (/^[aeiou]/i.test(MESOS[m]) ? "d'" : 'de ') + MESOS[m];
-  const nomDia = d => `${DIES[d.getDay()]} ${d.getDate()} ${deMes(d.getMonth())}`;
   const html = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const MINI = '<img class="mini" src="../escut.png" alt="">';
+  const ICONA = {
+    partits: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7.5l4 2.9-1.5 4.7h-5L8 10.4z" fill="#fff"/></svg>',
+    casa: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>',
+    fora: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M3 11h18M7 17v2M17 17v2"/><circle cx="7.5" cy="14" r="1" fill="#fff"/><circle cx="16.5" cy="14" r="1" fill="#fff"/></svg>',
+    descansen: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M3 18V7M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="2"/></svg>',
+    instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="#fff" stroke="none"/></svg>',
+    tiktok: '<svg viewBox="0 0 24 24" fill="#fff"><path d="M14 3h3a4 4 0 0 0 4 4v3a7 7 0 0 1-4-1.3V15a6 6 0 1 1-6-6v3.2A2.8 2.8 0 1 0 14 15z"/></svg>',
+  };
 
   let DADES = null, mode = 'partits';
   let format = 'post'; try { format = localStorage.getItem('cartell-format') || 'post'; } catch (e) {}
@@ -187,7 +206,18 @@
     const k = Math.min(1, (window.innerWidth - 32) / 1080, (window.innerHeight - 90) / ALT() * 1.6);
     document.documentElement.style.setProperty('--k', Math.max(0.25, k).toFixed(4));
   }
-  window.addEventListener('resize', escala); escala();
+  window.addEventListener('resize', escala);
+
+  // Peu: Instagram, patrocinador i TikTok (surten sempre)
+  function pintaPeu() {
+    const x = (xarxa, dreta) => EXTRA[xarxa] ? `<div class="xarxa ${dreta ? 'dreta' : ''}">${ICONA[xarxa]}@${html(EXTRA[xarxa])}</div>` : '<div></div>';
+    const p = EXTRA.patrocinador;
+    const patro = p?.logo ? `<div class="patro"><img src="../${p.logo}" alt="${html(p.nombre || '')}"></div>`
+      : p?.nombre ? `<div class="patro"><span class="nom">${html(p.nombre)}</span></div>`
+      : '<div class="patro buit-p">Espai per al vostre patrocinador</div>';
+    $('peu').innerHTML = x('instagram') + patro + x('tiktok', true);
+    if (EXTRA.foto) { $('foto').hidden = false; $('foto').style.backgroundImage = `url(../${EXTRA.foto})`; }
+  }
 
   function partitsDe(f) {
     const llista = [];
@@ -213,11 +243,11 @@
       : 'Sense partits';
     let h = '', grup = null;
     for (const p of llista) {
-      if (p.equip.etapa !== grup) { grup = p.equip.etapa; h += `<div class="grup">${grup}</div>`; }
+      if (p.equip.etapa !== grup) { grup = p.equip.etapa; h += `<div class="grup">${MINI}${grup}</div>`; }
       const r = resultat(p);
       const dreta = mode === 'resultats' && r ? `<span class="res ${r.lletra}">${r.txt}</span>`
         : `<span class="lloc ${p.casa ? 'casa' : 'fora'}">${p.casa ? 'Casa' : 'Fora'}</span>`;
-      h += `<div class="fila"><span class="h">${html(p.h)}</span><span class="eq">${html(p.equip.nombre)}</span><span class="rv"><i>vs</i> ${html(p.rival)}</span>${dreta}</div>`;
+      h += `<div class="fila"><span class="h">${html(p.h)}</span>${MINI}<span class="eq">${html(p.equip.nombre)}</span><span class="rv"><i>vs</i> ${html(p.rival)}</span>${dreta}</div>`;
     }
     $(id).innerHTML = h || '<div class="buit">Cap partit aquest dia</div>';
     return llista;
@@ -226,9 +256,9 @@
   // Redueix la lletra fins que tots els partits hi caben
   function ajusta() {
     for (const id of ['d1', 'd2']) {
-      const el = $(id); let fs = 30;
+      const el = $(id); let fs = 28;
       el.style.setProperty('--fs', fs + 'px');
-      while (el.scrollHeight > el.clientHeight + 1 && fs > 14) { fs -= 0.5; el.style.setProperty('--fs', fs + 'px'); }
+      while (el.scrollHeight > el.clientHeight + 1 && fs > 12) { fs -= 0.5; el.style.setProperty('--fs', fs + 'px'); }
     }
   }
 
@@ -249,7 +279,7 @@
     $('destacats').style.gridTemplateColumns = prim.length > 1 ? '1fr 1fr' : '1fr';
     $('destacats').innerHTML = prim.map(p => {
       const r = resultat(p), d = new Date(p.f + 'T12:00');
-      return `<div class="dest"><div class="t">${html(p.equip.nombre)}</div>
+      return `<div class="dest"><div class="t">★ ${html(p.equip.nombre)}</div>
         <div class="vs"><span>${html(p.local)}</span><b>${mode === 'resultats' && r ? r.txt : 'VS'}</b><span>${html(p.visit)}</span></div>
         <div class="info">${DIES[d.getDay()]} ${d.getDate()} · ${html(p.h)} h · ${p.casa ? 'A casa' : 'Fora'}</div></div>`;
     }).join('');
@@ -258,16 +288,16 @@
     const juguen = new Set(tots.map(p => p.equip.slug));
     const descansen = DADES.equipos.filter(e => !juguen.has(e.slug) && e.partidos.length);
     $('descansen').hidden = !descansen.length;
-    $('descansen').innerHTML = `<b>Descansen</b>${descansen.map(e => html(e.nombre)).join(' · ')}`;
+    $('descansen').innerHTML = `<b>Descansen</b>${descansen.map(e => `<span>${html(e.nombre)}</span>`).join('')}`;
 
     const casa = tots.filter(p => p.casa).length;
-    $('totals').innerHTML = [[tots.length, 'Partits'], [casa, 'A casa'], [tots.length - casa, 'Fora'], [descansen.length, 'Descansen']]
-      .map(([n, t]) => `<div class="tot"><b>${n}</b><span>${t}</span></div>`).join('');
+    $('totals').innerHTML = [[tots.length, 'Partits', 'partits'], [casa, 'A casa', 'casa'], [tots.length - casa, 'Fora', 'fora'], [descansen.length, 'Descansen', 'descansen']]
+      .map(([n, t, ic]) => `<div class="tot">${ICONA[ic]}<div><b>${n}</b><span>${t}</span></div></div>`).join('');
 
     ajusta();
     const revisat = DADES.equipos.map(e => e.revisado).filter(Boolean).sort().pop();
     $('nota').textContent = tots.length
-      ? `Dades de la Federació revisades el ${revisat ? new Date(revisat).toLocaleString('ca-ES', { dateStyle: 'short', timeStyle: 'short' }) : '—'}. Toca «Descarregar imatge» per penjar-lo a Instagram.`
+      ? `Dades revisades el ${revisat ? new Date(revisat).toLocaleString('ca-ES', { dateStyle: 'short', timeStyle: 'short' }) : '—'}. Toca «Descarregar imatge» per penjar-lo a Instagram.`
       : 'No hi ha cap partit aquest cap de setmana.';
   }
 
@@ -293,7 +323,7 @@
     }
   });
 
-  // Imatge a mida real (1080 × 1350 o 1080 × 1920): es dibuixa una còpia del cartell fora de la pantalla, sense escalar,
+  // Imatge a mida real: es dibuixa una còpia del cartell fora de la pantalla, sense escalar,
   // perquè html2canvas no la retalli a la mida de la finestra
   async function fesImatge() {
     await document.fonts.ready;
@@ -308,14 +338,10 @@
     }
   }
 
+  pintaPeu();
   posaFormat();
   pinta();
   document.fonts.ready.then(() => DADES && ajusta());
-  // Patrocinador del club (panel)
-  fetch(API + '/api/config?club=' + CLUB).then(r => r.ok ? r.json() : null).then(c => {
-    const p = c?.club?.patrocinador;
-    if (p?.nombre) document.querySelector('.patro').textContent = 'Amb el suport de ' + p.nombre;
-  }).catch(() => {});
   fetch(API + '/api/cartell?club=' + CLUB).then(r => r.ok ? r.json() : Promise.reject(r.status))
     .then(d => { DADES = d; pinta(); })
     .catch(() => { $('nota').textContent = 'No s\'han pogut carregar els partits. Torna-ho a provar en una estona.'; });
