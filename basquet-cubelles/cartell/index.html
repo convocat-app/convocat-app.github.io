@@ -15,6 +15,7 @@
     --color: #0d4f8b; --hondo: #062a4d; --claro: #2f7cc4; --suave: #e6f0fa;
     --tinta: #131722; --gris: #5f6678; --fondo: #eef1f6;
     --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+    --alt: 1350px; /* alçada del cartell: 1350 (post) o 1920 (història) */
     --texto: "Barlow", "Segoe UI", sans-serif;
   }
   [hidden] { display: none !important; }
@@ -33,11 +34,11 @@
   .btn[aria-pressed="true"] { background: var(--suave); border-color: var(--color); color: var(--hondo); }
   .nota { text-align: center; color: var(--gris); font-size: 0.85rem; margin: 10px 16px 0; }
 
-  /* ---------- Cartell: 1080 × 1920 (historia d'Instagram / TikTok) ---------- */
+  /* ---------- Cartell: 1080 × 1350 (post d'Instagram) o 1080 × 1920 (història / TikTok) ---------- */
   .escena { display: flex; justify-content: center; padding: 16px 0 40px; }
-  .marco { width: calc(1080px * var(--k)); height: calc(1920px * var(--k)); overflow: hidden; }
+  .marco { width: calc(1080px * var(--k)); height: calc(var(--alt) * var(--k)); overflow: hidden; }
   .cartell {
-    width: 1080px; height: 1920px; transform: scale(var(--k)); transform-origin: top left;
+    width: 1080px; height: var(--alt); transform: scale(var(--k)); transform-origin: top left;
     position: relative; overflow: hidden; box-sizing: border-box;
     padding: 64px 48px 44px;
     /* degradado vertical: html2canvas dibuja mal los degradados en diagonal */
@@ -54,6 +55,20 @@
     text-shadow: 0 6px 0 rgba(0,0,0,0.18);
   }
   .cab h1 small { display: block; font-size: 0.6em; }
+  /* Escut del club al costat del títol */
+  .cab-fila { display: flex; align-items: center; justify-content: center; gap: 30px; }
+  .escut { width: 150px; height: 150px; flex: none; border-radius: 50%; background: #fff; padding: 16px; box-sizing: border-box;
+    object-fit: contain; box-shadow: 0 10px 24px -10px rgba(0,0,0,0.45); }
+  .cab-fila h1 { text-align: left; }
+  /* Format post: més compacte */
+  .cartell.post { padding: 46px 44px 34px; gap: 18px; }
+  .post .cab h1 { font-size: 100px; }
+  .post .escut { width: 124px; height: 124px; padding: 13px; }
+  .post .cab .eyebrow { font-size: 22px; }
+  .post .cab .dates { font-size: 32px; margin-top: 8px; }
+  .post .totals { display: none; }
+  .post .dest { padding: 12px 18px; }
+  .post .dest .t { font-size: 28px; } .post .dest .vs { font-size: 27px; margin: 4px 0; } .post .dest .info { font-size: 21px; }
   .cab .dates { margin-top: 14px; font-family: var(--display); font-weight: 800; font-size: 38px; text-transform: uppercase; letter-spacing: 0.04em; }
 
   /* Partits destacats (primers equips) */
@@ -107,11 +122,13 @@
   <button class="btn" id="sig" type="button" aria-label="Cap de setmana següent">›</button>
   <button class="btn" id="m-partits" type="button" aria-pressed="true">Partits</button>
   <button class="btn" id="m-resultats" type="button" aria-pressed="false">Resultats</button>
+  <button class="btn" id="f-post" type="button" aria-pressed="true">Post</button>
+  <button class="btn" id="f-historia" type="button" aria-pressed="false">Història</button>
   <button class="btn prim" id="baixar" type="button">⬇ Descarregar imatge</button>
 </div>
 <p class="nota" id="nota">Carregant els partits…</p>
 
-<div class="escena"><div class="marco"><div class="cartell" id="cartell">
+<div class="escena"><div class="marco"><div class="cartell post" id="cartell">
   <svg class="campo" viewBox="0 0 1080 1920" preserveAspectRatio="none" aria-hidden="true">
     <g fill="none" stroke="#fff" stroke-opacity="0.07" stroke-width="4">
       <rect x="40" y="40" width="1000" height="1840" rx="8"/><line x1="40" y1="960" x2="1040" y2="960"/><circle cx="540" cy="960" r="150"/>
@@ -120,7 +137,7 @@
   </svg>
   <header class="cab">
     <div class="eyebrow" id="eyebrow">Partits del cap de setmana</div>
-    <h1><small>Partits</small>CB Cubelles</h1>
+    <div class="cab-fila"><img class="escut" src="../escut.png" alt="" onerror="this.remove()"><h1><small>Partits</small>CB Cubelles</h1></div>
     <div class="dates" id="dates"></div>
   </header>
   <section class="destacats" id="destacats" hidden></section>
@@ -132,7 +149,7 @@
   <section class="totals" id="totals"></section>
   <footer class="peu">
     <div class="patro">Espai per al vostre patrocinador</div>
-    <div class="marca">Dades oficials FCF · calendari-futbol-base</div>
+    <div class="marca">amb ConvoCAT</div>
   </footer>
 </div></div></div>
 
@@ -149,6 +166,16 @@
   const html = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
   let DADES = null, mode = 'partits';
+  let format = 'post'; try { format = localStorage.getItem('cartell-format') || 'post'; } catch (e) {}
+  const ALT = () => format === 'post' ? 1350 : 1920;
+  function posaFormat() {
+    document.documentElement.style.setProperty('--alt', ALT() + 'px');
+    $('cartell').classList.toggle('post', format === 'post');
+    $('f-post').setAttribute('aria-pressed', format === 'post');
+    $('f-historia').setAttribute('aria-pressed', format !== 'post');
+    try { localStorage.setItem('cartell-format', format); } catch (e) {}
+    escala(); if (DADES) ajusta();
+  }
   // Cap de setmana: de dilluns a divendres, el que ve; dissabte i diumenge, l'actual
   const avui = new Date(); avui.setHours(12, 0, 0, 0);
   let dissabte = new Date(avui); dissabte.setDate(avui.getDate() + ((6 - avui.getDay() + 7) % 7) - (avui.getDay() === 0 ? 7 : 0));
@@ -157,7 +184,7 @@
 
   // Escala el cartell perquè hi càpiga a la pantalla
   function escala() {
-    const k = Math.min(1, (window.innerWidth - 32) / 1080, (window.innerHeight - 90) / 1920 * 1.6);
+    const k = Math.min(1, (window.innerWidth - 32) / 1080, (window.innerHeight - 90) / ALT() * 1.6);
     document.documentElement.style.setProperty('--k', Math.max(0.25, k).toFixed(4));
   }
   window.addEventListener('resize', escala); escala();
@@ -248,13 +275,15 @@
   $('sig').addEventListener('click', () => { dissabte.setDate(dissabte.getDate() + 7); pinta(); });
   $('m-partits').addEventListener('click', () => { mode = 'partits'; pinta(); });
   $('m-resultats').addEventListener('click', () => { mode = 'resultats'; pinta(); });
+  $('f-post').addEventListener('click', () => { format = 'post'; posaFormat(); });
+  $('f-historia').addEventListener('click', () => { format = 'historia'; posaFormat(); });
 
   $('baixar').addEventListener('click', async () => {
     const b = $('baixar'); b.disabled = true; b.textContent = 'Preparant…';
     try {
       const canvas = await fesImatge();
       const a = document.createElement('a');
-      a.download = `partits-${CLUB}-${iso(dissabte)}${mode === 'resultats' ? '-resultats' : ''}.png`;
+      a.download = `partits-${CLUB}-${iso(dissabte)}${mode === 'resultats' ? '-resultats' : ''}-${format}.png`;
       a.href = canvas.toDataURL('image/png');
       a.click();
     } catch (e) {
@@ -264,7 +293,7 @@
     }
   });
 
-  // Imatge a mida real (1080 × 1920): es dibuixa una còpia del cartell fora de la pantalla, sense escalar,
+  // Imatge a mida real (1080 × 1350 o 1080 × 1920): es dibuixa una còpia del cartell fora de la pantalla, sense escalar,
   // perquè html2canvas no la retalli a la mida de la finestra
   async function fesImatge() {
     await document.fonts.ready;
@@ -273,12 +302,13 @@
     Object.assign(copia.style, { transform: 'none', position: 'fixed', left: '0', top: '0', zIndex: '-1' });
     document.body.appendChild(copia);
     try {
-      return await html2canvas(copia, { width: 1080, height: 1920, windowWidth: 1080, windowHeight: 1920, scale: 1, scrollX: 0, scrollY: 0, backgroundColor: null, useCORS: true });
+      return await html2canvas(copia, { width: 1080, height: ALT(), windowWidth: 1080, windowHeight: ALT(), scale: 1, scrollX: 0, scrollY: 0, backgroundColor: null, useCORS: true });
     } finally {
       copia.remove();
     }
   }
 
+  posaFormat();
   pinta();
   document.fonts.ready.then(() => DADES && ajusta());
   // Patrocinador del club (panel)

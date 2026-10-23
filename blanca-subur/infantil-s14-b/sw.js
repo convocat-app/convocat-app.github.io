@@ -1,6 +1,6 @@
 // Guarda la app en el móvil para que abra sin conexión.
 // Estrategia: intenta la red primero (así los cambios llegan solos) y, si no hay cobertura, usa la copia guardada.
-const CACHE = 'blanca-subur-infantil-s14-b-202610222136';
+const CACHE = 'blanca-subur-infantil-s14-b-202610231343';
 const ARCHIVOS = [
   './',
   './index.html',
